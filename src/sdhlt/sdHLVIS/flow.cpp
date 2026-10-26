@@ -683,6 +683,7 @@ void            BasePortalVis(int unused)
     float           d;
     winding_t*      w;
     const int       portalsize = (g_numportals * 2);
+    // 2CWLDYS
     // Was a fixed byte[PORTALSEE_SIZE] (MAX_PORTALS*2 = 65536) stack array, memset to
     // portalsize every iteration -- a map with more than MAX_PORTALS (32768) portals makes
     // portalsize exceed that fixed size, and the memset below overruns the stack buffer
