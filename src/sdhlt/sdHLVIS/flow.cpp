@@ -682,8 +682,14 @@ void            BasePortalVis(int unused)
     portal_t*       p;
     float           d;
     winding_t*      w;
-    byte            portalsee[PORTALSEE_SIZE];
     const int       portalsize = (g_numportals * 2);
+    // Was a fixed byte[PORTALSEE_SIZE] (MAX_PORTALS*2 = 65536) stack array, memset to
+    // portalsize every iteration -- a map with more than MAX_PORTALS (32768) portals makes
+    // portalsize exceed that fixed size, and the memset below overruns the stack buffer
+    // (STATUS_STACK_BUFFER_OVERRUN). g_portals itself is already heap-allocated and sized to
+    // the map's real portal count; this scratch buffer just never matched that. Allocated
+    // once per thread (not per-portal) and sized to what this run actually needs.
+    byte*           portalsee = (byte*)malloc(portalsize);
 
 #ifdef ZHLT_NETVIS
     {
@@ -754,6 +760,7 @@ void            BasePortalVis(int unused)
         SimpleFlood(p->mightsee, p->leaf, portalsee, &p->nummightsee);
         Verbose("portal:%4i  nummightsee:%4i \n", i, p->nummightsee);
     }
+    free(portalsee);
 }
 
 bool BestNormalFromWinding (const vec3_t *points, int numpoints, vec3_t &normal_out)
