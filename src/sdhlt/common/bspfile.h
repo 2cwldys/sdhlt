@@ -60,8 +60,12 @@
 #define MAX_INTERNAL_MAP_TEXINFO 262144
 
 
-#define MAX_MAP_EDGES       0x100000 // as Xash FWGS takes them (common/bspfile.h)
-#define MAX_MAP_SURFEDGES   0x200000
+// 2CWLDYS
+#define MAX_MAP_EDGES       0x100000 // GoldSrc 256000 (g_engine->edges); Xash3D FWGS's common/bspfile.h takes this many
+#define MAX_MAP_SURFEDGES   0x200000 // GoldSrc 512000 (g_engine->surfedges)
+// hlbsp's t-junction pass (tjunc.cpp): the edge points and the edges it gathers over the whole world
+#define MAX_TJUNC_POINTS    0x100000 // GoldSrc 0x40000 (g_engine->tjuncpoints)
+#define MAX_TJUNC_EDGES     0x80000  // GoldSrc 0x20000 (g_engine->tjuncedges)
 // arbtirary
 
 #define DEFAULT_MAX_MAP_MIPTEX      0x2000000 //0x400000 //vluzacn
@@ -528,6 +532,11 @@ typedef struct
     int             nodes;
     int             faces;
     int             marksurfaces;
+    // 2CWLDYS
+    int             edges;
+    int             surfedges;
+    int             tjuncpoints;                           // hlbsp's t-junction pass: the edge points and edges it
+    int             tjuncedges;                            // gathers, which a city past the 4096 box outgrows
 }
 enginelimits_t;
 extern const enginelimits_t* g_engine;

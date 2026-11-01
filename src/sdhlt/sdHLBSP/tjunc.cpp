@@ -22,8 +22,9 @@ static int      numwverts;
 static int      tjuncs;
 static int      tjuncfaces;
 
-#define MAX_WVERTS   0x100000 // a city past the 4096 box has more edge points than 0x40000
-#define MAX_WEDGES   0x80000
+// 2CWLDYS
+#define MAX_WVERTS   MAX_TJUNC_POINTS // the larger engine's; g_engine->tjuncpoints is the chosen one's
+#define MAX_WEDGES   MAX_TJUNC_EDGES
 
 static wvert_t  wverts[MAX_WVERTS];
 static wedge_t  wedges[MAX_WEDGES];
@@ -226,7 +227,8 @@ static wedge_t *FindEdge(const vec3_t p1, const vec3_t p2, vec_t* t1, vec_t* t2)
         return w;
     }
 
-    hlassume(numwedges < MAX_WEDGES, assume_MAX_WEDGES);
+    // 2CWLDYS
+    hlassume(numwedges < g_engine->tjuncedges, assume_MAX_WEDGES);
     w = &wedges[numwedges];
     numwedges++;
 
@@ -269,7 +271,8 @@ static void     AddVert(const wedge_t* const w, const vec_t t)
     while (1);
 
     // insert a new wvert before v
-    hlassume(numwverts < MAX_WVERTS, assume_MAX_WVERTS);
+    // 2CWLDYS
+    hlassume(numwverts < g_engine->tjuncpoints, assume_MAX_WVERTS);
 
     newv = &wverts[numwverts];
     numwverts++;

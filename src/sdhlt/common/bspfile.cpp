@@ -18,12 +18,16 @@ static const enginelimits_t s_goldsrc =
     "GoldSrc", 512, 32768, 32768, MAX_MAP_CLIPNODES_HLBSP, MAX_MAP_CLIPNODES_HLBSP,
     32768, MAX_MAP_LEAFS_ENGINE, 64, 0x800000, 0, MAX_ENGINE_ENTITIES, 0,
     65535, 32767, 65535, 65535,
+    // 2CWLDYS
+    256000, 512000, 0x40000, 0x20000,
 };
 static const enginelimits_t s_xash =
 {
     "Xash3D FWGS", 2048, 131072, 131072, MAX_MAP_CLIPNODES, MAX_MAP_CLIPNODES_HLBSP,
     MAX_MAP_FACES, MAX_MAP_LEAFS, 256, 0x1000000, 0x2000000, 8192, 1200,  // 1200: its gameinfo.c's max_edicts
     MAX_MAP_VERTS, MAX_MAP_NODES, MAX_MAP_FACES, MAX_MAP_MARKSURFACES,    // BSP2's, where its lump table refuses
+    // 2CWLDYS
+    MAX_MAP_EDGES, MAX_MAP_SURFEDGES, MAX_TJUNC_POINTS, MAX_TJUNC_EDGES,  // its lump table's edges; hlbsp's own arrays
 };
 const enginelimits_t* g_engine = &s_goldsrc;
 
@@ -1545,8 +1549,9 @@ void            PrintBSPFileSizes()
     totalmemory += ArrayUsage("leaves", g_numleafs, MAX_MAP_LEAFS, ENTRYSIZE(g_dleafs));
     totalmemory += ArrayUsage("* worldleaves", (g_nummodels > 0? g_dmodels[0].visleafs: 0), g_engine->worldleaves, 0);
     totalmemory += ArrayUsage("marksurfaces", g_nummarksurfaces, g_engine->marksurfaces, ENTRYSIZE(g_dmarksurfaces));
-    totalmemory += ArrayUsage("surfedges", g_numsurfedges, ENTRIES(g_dsurfedges), ENTRYSIZE(g_dsurfedges));
-    totalmemory += ArrayUsage("edges", g_numedges, ENTRIES(g_dedges), ENTRYSIZE(g_dedges));
+    // 2CWLDYS
+    totalmemory += ArrayUsage("surfedges", g_numsurfedges, g_engine->surfedges, ENTRYSIZE(g_dsurfedges));
+    totalmemory += ArrayUsage("edges", g_numedges, g_engine->edges, ENTRYSIZE(g_dedges));
 
     totalmemory += GlobUsage("texdata", g_texdatasize, g_max_map_miptex);
     totalmemory += GlobUsage("lightdata", g_lightdatasize, g_max_map_lightdata);

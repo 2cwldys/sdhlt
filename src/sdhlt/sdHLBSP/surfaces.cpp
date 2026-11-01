@@ -351,7 +351,8 @@ int             GetEdge(const vec3_t p1, const vec3_t p2, face_t* f)
     }
 
     // emit an edge
-    hlassume(g_numedges < MAX_MAP_EDGES, assume_MAX_MAP_EDGES);
+    // 2CWLDYS
+    hlassume(g_numedges < g_engine->edges, assume_MAX_MAP_EDGES);
     edge = &g_dedges[g_numedges];
     g_numedges++;
     edge->v[0] = v1;

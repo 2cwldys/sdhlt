@@ -321,7 +321,8 @@ static void     WriteFace(face_t* f)
     for (i = 0; i < f->numpoints; i++)
     {
 		e = f->outputedges[i];
-        hlassume(g_numsurfedges < MAX_MAP_SURFEDGES, assume_MAX_MAP_SURFEDGES);
+        // 2CWLDYS
+        hlassume(g_numsurfedges < g_engine->surfedges, assume_MAX_MAP_SURFEDGES);
         g_dsurfedges[g_numsurfedges] = e;
         g_numsurfedges++;
     }
