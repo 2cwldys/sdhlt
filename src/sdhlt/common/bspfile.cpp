@@ -20,6 +20,8 @@ static const enginelimits_t s_goldsrc =
     65535, 32767, 65535, 65535,
     // 2CWLDYS
     256000, 512000, 0x40000, 0x20000,
+    // 2CWLDYS
+    32760,
 };
 static const enginelimits_t s_xash =
 {
@@ -28,6 +30,8 @@ static const enginelimits_t s_xash =
     MAX_MAP_VERTS, MAX_MAP_NODES, MAX_MAP_FACES, MAX_MAP_MARKSURFACES,    // BSP2's, where its lump table refuses
     // 2CWLDYS
     MAX_MAP_EDGES, MAX_MAP_SURFEDGES, MAX_TJUNC_POINTS, MAX_TJUNC_EDGES,  // its lump table's edges; hlbsp's own arrays
+    // 2CWLDYS
+    MAX_MAP_LEAFS,
 };
 const enginelimits_t* g_engine = &s_goldsrc;
 
@@ -1546,7 +1550,8 @@ void            PrintBSPFileSizes()
     totalmemory += ArrayUsage("faces", g_numfaces, g_engine->faces, ENTRYSIZE(g_dfaces));
 	totalmemory += ArrayUsage("* worldfaces", (g_nummodels > 0? g_dmodels[0].numfaces: 0), g_engine->worldfaces, 0);
     totalmemory += ArrayUsage("clipnodes", g_numclipnodes, g_engine->clipnodes, ENTRYSIZE(g_dclipnodes));
-    totalmemory += ArrayUsage("leaves", g_numleafs, MAX_MAP_LEAFS, ENTRYSIZE(g_dleafs));
+    // 2CWLDYS
+    totalmemory += ArrayUsage("leaves", g_numleafs, g_engine->leaves, ENTRYSIZE(g_dleafs));
     totalmemory += ArrayUsage("* worldleaves", (g_nummodels > 0? g_dmodels[0].visleafs: 0), g_engine->worldleaves, 0);
     totalmemory += ArrayUsage("marksurfaces", g_nummarksurfaces, g_engine->marksurfaces, ENTRYSIZE(g_dmarksurfaces));
     // 2CWLDYS

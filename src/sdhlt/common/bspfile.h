@@ -40,7 +40,10 @@
 #define MAX_MAP_CLIPNODES    524288  // the working set; over the v30 ceiling, -xash writes Xash bsp30ext (32-bit clipnodes)
 // hard limit (negative short's are used as contents values)
 
-#define MAX_MAP_LEAFS        32760
+// 2CWLDYS
+#define MAX_MAP_LEAFS        131072 // GoldSrc 32760 (g_engine->leaves); Xash3D FWGS's common/bspfile.h takes this many
+// hlvis's vis leaves (portal leafs, the BSP's leaves grouped round detail): its recursion frames are sized for them
+#define MAX_MAP_PORTALLEAFS  32760
 #define MAX_MAP_LEAFS_ENGINE 8192
 // No problem has been observed in testmap or reported, except when viewing the map from outside (some leafs missing, no crash).
 // This problem indicates that engine's MAX_MAP_LEAFS is 8192 (for reason, see: Quake - gl_model.c - Mod_Init).
@@ -537,6 +540,8 @@ typedef struct
     int             surfedges;
     int             tjuncpoints;                           // hlbsp's t-junction pass: the edge points and edges it
     int             tjuncedges;                            // gathers, which a city past the 4096 box outgrows
+    // 2CWLDYS
+    int             leaves;
 }
 enginelimits_t;
 extern const enginelimits_t* g_engine;

@@ -191,7 +191,8 @@ static int		WriteDrawLeaf (node_t *node, const node_t *portalleaf)
 	int				leafnum = g_numleafs;
 
     // emit a leaf
-	hlassume (g_numleafs < MAX_MAP_LEAFS, assume_MAX_MAP_LEAFS);
+	// 2CWLDYS
+	hlassume (g_numleafs < g_engine->leaves, assume_MAX_MAP_LEAFS);
     leaf_p = &g_dleafs[g_numleafs];
     g_numleafs++;
 

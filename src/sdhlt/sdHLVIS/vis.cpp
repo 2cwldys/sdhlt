@@ -1013,9 +1013,10 @@ static void     LoadPortals(char* portal_image)
     vismap = vismap_p = g_dvisdata;
     vismap_end = vismap + g_engine->visdata;
 
-	if (g_portalleafs > MAX_MAP_LEAFS)
+	// 2CWLDYS
+	if (g_portalleafs > MAX_MAP_PORTALLEAFS)
 	{ // this may cause hlvis to overflow, because numportalleafs can be larger than g_numleafs in some special cases
-		Error ("Too many portalleafs (g_portalleafs(%d) > MAX_MAP_LEAFS(%d)).", g_portalleafs, MAX_MAP_LEAFS);
+		Error ("Too many portalleafs (g_portalleafs(%d) > MAX_MAP_PORTALLEAFS(%d)).", g_portalleafs, MAX_MAP_PORTALLEAFS);
 	}
 	g_leafcount_all = 0;
 	for (i = 0; i < g_portalleafs; i++)
