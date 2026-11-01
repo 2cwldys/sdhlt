@@ -22,8 +22,8 @@ static int      numwverts;
 static int      tjuncs;
 static int      tjuncfaces;
 
-#define MAX_WVERTS   0x40000
-#define MAX_WEDGES   0x20000
+#define MAX_WVERTS   0x100000 // a city past the 4096 box has more edge points than 0x40000
+#define MAX_WEDGES   0x80000
 
 static wvert_t  wverts[MAX_WVERTS];
 static wedge_t  wedges[MAX_WEDGES];

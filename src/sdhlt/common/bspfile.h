@@ -60,8 +60,8 @@
 #define MAX_INTERNAL_MAP_TEXINFO 262144
 
 
-#define MAX_MAP_EDGES       256000
-#define MAX_MAP_SURFEDGES   512000
+#define MAX_MAP_EDGES       0x100000 // as Xash FWGS takes them (common/bspfile.h)
+#define MAX_MAP_SURFEDGES   0x200000
 // arbtirary
 
 #define DEFAULT_MAX_MAP_MIPTEX      0x2000000 //0x400000 //vluzacn
